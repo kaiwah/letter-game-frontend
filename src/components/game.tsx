@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
 import Board from './board';
+import Trie from '../struc/trie';
 
-
-class Game extends Component<{}, { board: string[], moves: string, isValid: boolean|null }> {
+class Game extends Component<{}, { board: string[], moves: string, isValid: boolean|null, dictionary: any }> {
   constructor(props: any){
     super(props);
 		this.state = {
       board: ['X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'], 
       moves: '',
-      isValid: null
+      isValid: null,
+      dictionary: new Trie()
     };
   }
   componentDidMount(){
-    const boardTestOne = require('../data/test-board-1.json'),
-          boardTestTwo = require('../data/test-board-2.json');
+    const dictionary = this.state.dictionary,
+          boardTestOne = require('../data/test-board-1.json'),
+          boardTestTwo = require('../data/test-board-2.json'),
+          wordCollection = require('../data/dictionary.json');
     this.setState({ board: boardTestOne.board }); // setting both state to remove unused-vars lint
     this.setState({ board: boardTestTwo.board });
+    // Dictionary Insertion from Collection
+    console.group('Dictionary Log');
+    for (let i = 0; i < wordCollection.words.length; ++i){
+      dictionary.add(wordCollection.words[i]);
+    }
+    console.log(`Total Words in Dictionary: ${dictionary.count}`);
+    console.groupEnd();
   }
 	playerClear(){
     document.querySelectorAll('button.selected').forEach((el: any) => {
