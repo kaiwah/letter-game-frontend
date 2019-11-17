@@ -1,0 +1,101 @@
+/** Letters Game Primary SCSS File
+ * @author: Kaiwah
+ */
+@import 'reset.scss';
+
+// GLOBALS
+body * {
+  font-size: 16px; 
+  box-sizing: border-box; 
+}
+
+// MIXINS
+@mixin ArialBold {
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+// GLOBALVARS
+$buttonSize: 85px;
+$gray: #979797;
+$lghtRed: #f55160;
+$rubyRed: #d0021b;
+$darkRed: #a0041c;
+$yellow: #fad760;
+$orange: #f76d1d;
+
+
+// GAMEBOARD
+div.game-container {
+  display: block;
+  width: 100%;
+  margin: 20px auto;
+  div.gameboard {
+    max-width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: center;
+    button {
+      width: $buttonSize; height: $buttonSize;
+      position: relative;
+      @include ArialBold;
+      color: white;
+      text-shadow: -2px -2px 3px rgba(0,0,0,0.4);
+      border: 0px solid transparent; // for gradient
+      background-clip: padding-box; // for gradient
+      background: linear-gradient(to bottom, $yellow, $orange);
+      border-radius: 15px;
+      &:not(:nth-last-child(-n+4)){ margin-bottom: 18px; }
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background: linear-gradient(to bottom, $lghtRed, $darkRed);
+        border-radius: 18px;
+        margin: -2px;
+        z-index: -1;
+      }
+    }
+  }
+  div.word-display {
+    width: 100%; height: $buttonSize;
+    position: relative;
+    @include ArialBold;
+    color: $rubyRed;
+    border: 2px solid $gray;
+    padding: 25px;
+    &.valid:after   { content: 'valid'; color: rgba(0,150,0,0.4); }
+    &.invalid:after { content: 'invalid'; color: rgba(150,0,0,0.4); }
+    &.valid:after, &.invalid:after {
+      position: absolute;
+      right: 20px; top: 0;
+      font-size: 1rem;
+      font-weight: 100;
+      line-height: $buttonSize;
+    }
+  }
+  // tablet + desktop styling
+  @media screen and (min-width: 768px){
+    max-width: 850px;
+    display: flex;
+    div.gameboard {
+      display: inline-flex;
+      button {
+        &.selected { background: transparent; }
+      }
+    }
+    div.word-container {
+      width: 100%;
+      max-width: 350px;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-left: 20px;
+    }
+
+  }
+}
