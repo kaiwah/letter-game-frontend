@@ -37,7 +37,10 @@ class Game extends Component<{}, { board: string[], moves: string, isValid: bool
     var moves = this.state.moves || '\u0020';
     return(
       <div className="game-container">
-				<div className="game-clear" onClick={() => this.playerClear()}>clear word</div>
+				<div className="game-clear" onClick={() => this.playerClear()}>
+          <div className="clear-text">clear word</div>
+          <div className="clear-icon">✕</div>
+        </div>
         <Board 
           board={this.state.board}
           click={(i) => this.playerSelectTile(i)}  

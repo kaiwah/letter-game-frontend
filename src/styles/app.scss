@@ -17,6 +17,7 @@ body * {
 }
 
 // GLOBALVARS
+$boardSize: 400px;
 $buttonSize: 85px;
 $gray: #979797;
 $lghtRed: #f55160;
@@ -29,16 +30,17 @@ $orange: #f76d1d;
 // GAMEBOARD
 div.game-container {
   display: block;
+  position: relative;
   width: 100%;
-  margin: 20px auto;
   div.gameboard {
-    max-width: 400px;
+    max-width: $boardSize;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
     align-content: space-between;
     align-items: center;
+    margin: 20px auto;
     button {
       width: $buttonSize; height: $buttonSize;
       position: relative;
@@ -49,6 +51,7 @@ div.game-container {
       background-clip: padding-box; // for gradient
       background: linear-gradient(to bottom, $yellow, $orange);
       border-radius: 15px;
+      &:hover { opacity: 0.95; }
       &:not(:nth-last-child(-n+4)){ margin-bottom: 18px; }
       &:before {
         content: '';
@@ -61,41 +64,66 @@ div.game-container {
       }
     }
   }
-  div.word-display {
-    width: 100%; height: $buttonSize;
-    position: relative;
-    @include ArialBold;
-    color: $rubyRed;
-    border: 2px solid $gray;
-    padding: 25px;
-    &.valid:after   { content: 'valid'; color: rgba(0,150,0,0.4); }
-    &.invalid:after { content: 'invalid'; color: rgba(150,0,0,0.4); }
-    &.valid:after, &.invalid:after {
-      position: absolute;
-      right: 20px; top: 0;
-      font-size: 1rem;
-      font-weight: 100;
-      line-height: $buttonSize;
+  div.word-container {
+    max-width: $boardSize;
+    margin: auto;
+    div.word-display { width: 100%; height: $buttonSize;
+      position: relative;
+      @include ArialBold;
+      color: $rubyRed;
+      border: 2px solid $gray;
+      padding: 25px;
+      &.valid:after   { content: 'valid'; color: rgba(0,150,0,0.4); }
+      &.invalid:after { content: 'invalid'; color: rgba(150,0,0,0.4); }
+      &.valid:after, &.invalid:after {
+        position: absolute;
+        right: 20px; top: 0;
+        font-size: 1rem;
+        font-weight: 100;
+        line-height: $buttonSize;      
+      }
+    }   
+  }
+  div.game-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: gray;
+    &:hover { cursor: pointer; }
+    div.clear-icon {
+      width: 42px; height: 42px;
+      color: white;
+      font-size: 2rem;
+      text-align: center;
+      line-height: 42px;
+      background: gray;
+      border-radius: 40px; 
+      margin-left: 20px;
     }
   }
   // tablet + desktop styling
   @media screen and (min-width: 768px){
     max-width: 850px;
     display: flex;
+    margin: 20px auto;
     div.gameboard {
       display: inline-flex;
-      button {
-        &.selected { background: transparent; }
-      }
+      margin: 0 auto;
+      button.selected { background: transparent; }
     }
     div.word-container {
       width: 100%;
-      max-width: 350px;
+      max-width: 430px;
       display: inline-flex;
       flex-direction: column;
       justify-content: flex-end;
-      margin-left: 20px;
+      margin: 0 0 0 20px;
     }
-
+    div.game-clear {
+      position: absolute;
+      right: 0;
+    }
   }
 }
