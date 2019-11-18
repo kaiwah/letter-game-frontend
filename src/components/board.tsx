@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 interface BoardProps {
   board: string[],
+  valid: string|null,
   click(i: number): any
 }
 
@@ -19,7 +20,7 @@ class Board extends Component<BoardProps> {
   }
   render(){
     return(
-      <div className="gameboard">
+      <div className={ `gameboard ${this.props.valid}` }>
         {this.props.board.map((val: string, i: number)=>{
           return this.renderTile(i);
         })}

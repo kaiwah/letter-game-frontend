@@ -53,22 +53,28 @@ div.game-container {
       background-clip: padding-box; // for gradient
       background: linear-gradient(to bottom, $yellow, $orange);
       border-radius: 15px;
-      &:hover { opacity: 0.95; }
+      &:hover { opacity: 0.85; }
       &:not(:nth-last-child(-n+4)){ margin-bottom: 18px; }
       &:before {
         content: '';
         position: absolute;
         top: 0; right: 0; bottom: 0; left: 0;
-        background: linear-gradient(to bottom, $lghtRed, $darkRed);
+        background: linear-gradient(to bottom, $lghtRed, $darkRed); 
         border-radius: 18px;
         margin: -2px;
         z-index: -1;
       }
       &.selected {
+        background: linear-gradient(to bottom, gray, dark-gray);
         border: 0px solid green; 
-        background: linear-gradient(to bottom, $limeGreen, $darkGreen); 
-        &:before { background: linear-gradient(to bottom, $limeGreen, $darkGreen); }
       }
+    }
+    &.valid button.selected { 
+      background: linear-gradient(to bottom, $limeGreen, $darkGreen);
+      &:before { background: linear-gradient(to bottom, $limeGreen, $darkGreen); }
+    } 
+    &.invalid button {
+      &.selected { background: linear-gradient(to bottom, $lghtRed, $darkRed) }; 
     }
   }
   div.word-container {
@@ -77,11 +83,17 @@ div.game-container {
     div.word-display { width: 100%; height: $buttonSize;
       position: relative;
       @include ArialBold;
-      color: $midGreen;
+      color: gray;
       border: 2px solid $gray;
       padding: 25px;
-      &.valid:after   { content: 'valid'; color: rgba(0,150,0,0.4); }
-      &.invalid:after { content: 'invalid'; color: rgba(150,0,0,0.4); }
+      &.valid {
+        color: $midGreen;
+        &:after   { content: 'valid'; color: rgba(0,150,0,0.4); }
+      }
+      &.invalid {
+        color: $rubyRed;
+        &:after { content: 'invalid'; color: rgba(150,0,0,0.4); }
+      }
       &.valid:after, &.invalid:after {
         position: absolute;
         right: 20px; top: 0;
@@ -120,7 +132,6 @@ div.game-container {
       margin: 0 auto;
       button.selected { 
         background: transparent; 
-        &:before { background: linear-gradient(to bottom, $lghtRed, $darkRed); }
       }
     }
     div.word-container {
@@ -130,7 +141,6 @@ div.game-container {
       flex-direction: column;
       justify-content: flex-end;
       margin: 0 0 0 20px;
-      div.word-display { color: $rubyRed }
     }
     div.game-clear {
       position: absolute;
