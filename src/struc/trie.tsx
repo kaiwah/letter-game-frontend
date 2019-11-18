@@ -37,6 +37,7 @@ class Trie {
   add(word: string){
     let node = this.dict, 
         char;
+    word = word.toLowerCase();
     for (let i = 0; i < word.length; ++i){
       char = word[i];
       if (node.children[char])
@@ -59,12 +60,13 @@ class Trie {
    */
   has(word: string){
     let node = this.dict, char;
+    word = word.toLowerCase();
     for (let i = 0; i < word.length; ++i){
       char = word[i];
-      if (!node.chilren[char])
+      if (!node.children[char])
         return { found: false };
       else
-        node = node.chilren[char];
+        node = node.children[char];
     }
     return { found: true, completeWord: node.complete };
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Board from './board';
 import Trie from '../struc/trie';
 
-class Game extends Component<{}, { board: string[], moves: string, isValid: boolean|null, dictionary: any }> {
+class Game extends Component<{}, { board: string[], moves: string, isValid: string|null, dictionary: any }> {
   constructor(props: any){
     super(props);
 		this.state = {
@@ -31,18 +31,26 @@ class Game extends Component<{}, { board: string[], moves: string, isValid: bool
     document.querySelectorAll('button.selected').forEach((el: any) => {
       el.classList.remove('selected');
     });
-    this.setState({ moves: '' });
+    this.setState({ moves: '', isValid: 'pending' });
 	}
   playerSelectTile(ind: number){
     const tile = this.state.board[ind];
-    var word = this.state.moves;
+    var word = this.state.moves, wordSearch;
     // check if already selected tile
     if (word.indexOf(tile) !== -1)
       word = word.replace(tile,'');
     else
       word += tile;
     this.setState({ moves: word });
-  }
+    // validate word in dictionary
+    wordSearch = this.state.dictionary.has(word);
+    if (!wordSearch.found)
+      this.setState({ isValid: 'invalid' });
+    else if (wordSearch.found && wordSearch.completeWord)
+      this.setState({ isValid: 'valid' });
+    else
+      this.setState({ isValid: 'pending' });
+}
   render(){
     var moves = this.state.moves || '\u0020';
     return(

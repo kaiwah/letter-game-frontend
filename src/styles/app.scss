@@ -25,7 +25,9 @@ $rubyRed: #d0021b;
 $darkRed: #a0041c;
 $yellow: #fad760;
 $orange: #f76d1d;
-
+$midGreen: #7ed321;
+$darkGreen: #459623;
+$limeGreen: #b3ec50;
 
 // GAMEBOARD
 div.game-container {
@@ -40,7 +42,7 @@ div.game-container {
     justify-content: space-between;
     align-content: space-between;
     align-items: center;
-    margin: 20px auto;
+    margin: 80px auto;
     button {
       width: $buttonSize; height: $buttonSize;
       position: relative;
@@ -62,6 +64,11 @@ div.game-container {
         margin: -2px;
         z-index: -1;
       }
+      &.selected {
+        border: 0px solid green; 
+        background: linear-gradient(to bottom, $limeGreen, $darkGreen); 
+        &:before { background: linear-gradient(to bottom, $limeGreen, $darkGreen); }
+      }
     }
   }
   div.word-container {
@@ -70,7 +77,7 @@ div.game-container {
     div.word-display { width: 100%; height: $buttonSize;
       position: relative;
       @include ArialBold;
-      color: $rubyRed;
+      color: $midGreen;
       border: 2px solid $gray;
       padding: 25px;
       &.valid:after   { content: 'valid'; color: rgba(0,150,0,0.4); }
@@ -87,7 +94,7 @@ div.game-container {
   div.game-clear {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     font-family: Arial, sans-serif;
     font-size: 1rem;
     color: gray;
@@ -111,7 +118,10 @@ div.game-container {
     div.gameboard {
       display: inline-flex;
       margin: 0 auto;
-      button.selected { background: transparent; }
+      button.selected { 
+        background: transparent; 
+        &:before { background: linear-gradient(to bottom, $lghtRed, $darkRed); }
+      }
     }
     div.word-container {
       width: 100%;
@@ -120,10 +130,12 @@ div.game-container {
       flex-direction: column;
       justify-content: flex-end;
       margin: 0 0 0 20px;
+      div.word-display { color: $rubyRed }
     }
     div.game-clear {
       position: absolute;
       right: 0;
+      justify-content: center;
     }
   }
 }
