@@ -35,7 +35,7 @@ div.game-container {
   position: relative;
   width: 100%;
   div.gameboard {
-    max-width: $boardSize;
+    width: $boardSize;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -65,7 +65,7 @@ div.game-container {
         z-index: -1;
       }
       &.selected {
-        background: linear-gradient(to bottom, gray, dark-gray);
+        background: transparent; 
         border: 0px solid green; 
       }
     }
@@ -105,11 +105,13 @@ div.game-container {
   }
   div.game-clear {
     display: flex;
+    max-width: $boardSize;
     align-items: center;
     justify-content: flex-end;
     font-family: Arial, sans-serif;
     font-size: 1rem;
     color: gray;
+    margin: 0 auto;
     &:hover { cursor: pointer; }
     div.clear-icon {
       width: 42px; height: 42px;
@@ -124,15 +126,12 @@ div.game-container {
   }
   // tablet + desktop styling
   @media screen and (min-width: 768px){
-    max-width: 850px;
+    width: 850px;
     display: flex;
     margin: 20px auto;
     div.gameboard {
       display: inline-flex;
       margin: 0 auto;
-      button.selected { 
-        background: transparent; 
-      }
     }
     div.word-container {
       width: 100%;
